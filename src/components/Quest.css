@@ -13,10 +13,10 @@
   
   }
 
-  .text{
+  /* .text{
     color: whitesmoke;
     margin-top: 4%;
-}
+} */
 .Heading{
   color: whitesmoke;
   text-align: left;
@@ -31,7 +31,6 @@
   align-items: center;
   justify-content: center;
 }
-
 /* styling for button */
 .btn-primary {
   color: whitesmoke;
