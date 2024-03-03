@@ -248,9 +248,13 @@ const QuestionnaireMRI = () => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(orderedAnswers)
   };
-  fetch('http://localhost:8000/predict_score', requestOptions)
-      .then(response => response.json())
-      .then(data => setPostId(data.id));
+  fetch('/predict_score', requestOptions)
+      .then(response => {
+        const res = response.json()
+        console.log(res)
+      })
+      .then(data => console.log(data))
+      .catch(err => console.log(err));
     console.log('Form submitted!');
     console.log('Ordered Answers:', orderedAnswers);
   };

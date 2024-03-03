@@ -55,5 +55,9 @@
   color: whitesmoke; /* Set text color for readability */
 }
 
+body {
+  background-color: black; /* Set your desired background color */
+  color: whitesmoke;
+}
 
 
