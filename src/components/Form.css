@@ -1,9 +1,9 @@
 .container-mains{
     /* position: absolute;
     margin-top: 7%; */
-    /* background-image: linear-gradient(rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.4 )), 
-    url('../components/black.jpg'); */
-    background-color: black;
+    background-image: linear-gradient(rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.4 )), 
+    url('../components/bg2.jpg');
+    /* background-color: black; */
     height: 100vh;
     background-repeat: no-repeat;
     background-size: cover;
