@@ -4,7 +4,7 @@ import './About.css';
 const About = () => {
   return (
     <div className='container-mains'>
-  <h2>Understanding Autism Spectrum Disorder (ASD)</h2>
+  <h4>Understanding Autism Spectrum Disorder (ASD)</h4>
 
   <p>
     Autism Spectrum Disorder (ASD) is a neurodevelopmental disorder characterized by challenges in social interaction, communication, and repetitive behaviors. It is a spectrum, meaning individuals with ASD may exhibit a wide range of symptoms and abilities.
@@ -12,7 +12,7 @@ const About = () => {
 
  
 
-  <h2>Common Symptoms of ASD</h2>
+  <h4>Common Symptoms of ASD</h4>
 
   <p>
     Autism Spectrum Disorder may present various symptoms, and these can manifest differently in individuals. Common symptoms include:
@@ -25,7 +25,7 @@ const About = () => {
     <li>Sensitivity to sensory stimuli (e.g., lights, sounds)</li>
     <li>Difficulty with transitions and changes in routine</li>
   </ul>
-  <h2>How This Website Works</h2>
+  <h4>How This Website Works</h4>
 <p>
   Our website aims to provide a user-friendly questionnaire to assess the likelihood of ASD in individuals across different age groups. Users can fill out the questionnaire and submit relevant details for analysis.
 </p>
