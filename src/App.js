@@ -7,6 +7,8 @@ import About from './components/About';
 import Contact from './components/Contact';
 import QuestionnaireMRI from './components/Quest';
 import MyForm from './components/Form';
+import Result from './components/result';
+
 function App() {
   return (
     <>
@@ -18,6 +20,7 @@ function App() {
         <Route exact path="/form" element={<QuestionnaireMRI/>} />
         <Route path="/About" element={<About />} />
         <Route path="/Contact" element={<Contact />} />
+        <Route path="/Result" element={<Result/>} />
       </Routes>
     </Router>
     </>

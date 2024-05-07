@@ -1,16 +1,51 @@
-import React from 'react';
-import Navbar from './Navbar';
+import React, {useRef} from 'react'
+import './contact.css';
+import emailjs from '@emailjs/browser';
 
-function Contact() {
+const Contact = () => {
+    const form = useRef();
+    const sendEmail = (e) => {
+        e.preventDefault();
+    
+        emailjs
+          .sendForm('service_mhiv7xj', 'template_cockw4f', form.current, {
+            publicKey: 'nZs1A6RuMuNUDLW4x',
+          })
+          .then(
+            () => {
+              console.log('SUCCESS!');
+            },
+            (error) => {
+              console.log('FAILED...', error.text);
+            },
+          );
+      };
   return (
-    <div className="container-main content">
-      <h2>Contact Us</h2>
-      <p>If you have any questions or feedback, please feel free to get in touch with us!</p>
-      <p>Email: info@example.com</p>
-      <p>Phone: +1 (123) 456-7890</p>
-      {/* You can add a contact form here if you want */}
-    </div>
-  );
+    <section id="contactPage">
+        <h1 className="contactPageTitle">Have any doubts?</h1>
+        <span className='contactDesc'>Let us Know - Share Your Thoughts! </span>
+        <form className="contactForm" ref={form} onSubmit={sendEmail} >
+            <input type="text" className="name" placeholder="Name" name="your_name"/>
+            <input type="email" className="email" placeholder="Email" name="your_email"/>
+            <textarea rows="5" cols="30" name="message" placeholder="Type your message.." className="msg"></textarea>
+            <button className="submit-button" type="submit" value="send" >Submit</button>
+            
+        </form>
+        <footer className="footer">
+      <div className='icons'>
+      <a href="https://github.com/neethafrancis/">GitHub</a>
+      <a href="https://www.linkedin.com/in/neetha-francis-584673206/">Linkedin</a>
+      <a href="">Gmail</a>
+
+      </div>
+      <div className='text-footer'>
+        Copyright &#169; 2024. All rights received.
+      </div>
+    </footer>
+    </section>
+    
+    
+  ); 
 }
 
-export default Contact;
+export default Contact

@@ -1,8 +1,10 @@
 import React, { useState, useMemo } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import './Quest.css';
+
 const QuestionnaireMRI = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const { ageGroup } = location.state || {};
 
   const questionnaireData = useMemo(() => ({
@@ -192,9 +194,10 @@ const QuestionnaireMRI = () => {
     relation: '',
     questionnaire: {}, 
     facialImage: null,
-    video: null, 
   });
+
   const [result, setResult] = useState('')
+
   const handleAnswerChange = (question, answer) => {
     setAnswers((prevAnswers) => ({
       ...prevAnswers,
@@ -214,54 +217,63 @@ const QuestionnaireMRI = () => {
     }));
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-  
+
     // Calculate the sum of option values for each question
     const scores = questionnaireData[ageGroup]?.questionnaire.map((questionData) => {
-      const selectedOption = answers.questionnaire[questionData.question];
-      const optionValue = questionData.options[selectedOption];
-      return optionValue;
+        const selectedOption = answers.questionnaire[questionData.question];
+        const optionValue = questionData.options[selectedOption];
+        return optionValue;
     });
     console.log('Scores:', scores);
     const totalScore = scores.reduce((sum, score) => sum + score, 0);
     let finalScore;
     if (ageGroup >= 4) {
-      finalScore = totalScore >= 7 ? 1 : 0;
+        finalScore = totalScore >= 7 ? 1 : 0;
     } else {
-      finalScore = totalScore >= 4 ? 1 : 0;
+        finalScore = totalScore >= 4 ? 1 : 0;
     }
     console.log('Final Score:', finalScore);
-  
-    const orderedAnswers = {
-      score: finalScore,
-      age: answers.age,
-      gender: answers.gender,
-      jaundice: answers.jaundice,
-      relation: answers.relation,
+
+    const jsonData = {
+        score: finalScore,
+        age: answers.age,
+        gender: answers.gender,
+        jaundice: answers.jaundice,
+        relation: answers.relation
     };
+
+    const formData = new FormData();
+    formData.append("jsonData", JSON.stringify(jsonData));
+    formData.append("facial_image", answers.facialImage);
 
     const requestOptions = {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(orderedAnswers),
+        method: 'POST',
+        body: formData 
     };
-    fetch('http://localhost:8000/predict_score', requestOptions)
-      .then(response => {
-        return response.json()
-      })
-      .then(data => { console.log('iii', data.message)
-      setResult(data.message)
-    })
-      .catch(err => console.log(err));
 
-    // console.log('Form submitted!');
-    // console.log('Ordered Answers:', orderedAnswers);
-  };
-  
+    fetch('http://localhost:8000/predict', requestOptions)
+    .then(response => response.json())
+    .then(data => {
+      console.log('Prediction:', data.combined_prediction);
+      setResult(data.combined_prediction);
+
+      // Move navigation logic here
+      navigate('/Result',{
+        state: {
+          result : data.combined_prediction,
+        },
+      });
+    })
+    .catch(err => console.error('Error:', err));
+    
+};
+
+
 
   return (
-    <div className="container-mains ">
+    <div className="container-quest">
       <h2 className="Heading">Fill in the details</h2>
       <p>Age Group: {ageGroup.toUpperCase()}</p>
 
@@ -354,13 +366,6 @@ const QuestionnaireMRI = () => {
           <label>
             Upload Facial Image:
             <input type="file" onChange={(e) => handleFileUpload(e, 'facialImage')}  />
-          </label>
-        </div>
-
-        <div className="mt-4">
-          <label>
-            Upload Video:
-            <input type="file" onChange={(e) => handleFileUpload(e, 'video')} />
           </label>
         </div>
         

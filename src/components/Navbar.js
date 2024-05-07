@@ -28,7 +28,7 @@ function Navbar() {
                 <a className={pageName === 'About'? 'nav-link active' : 'nav-link'} href="/About">About</a>
               </li>
               <li className="nav-item custom-margin">
-                <a className={pageName == 'Contact'? 'nav-link active' : 'nav-link'} href="/Contact">Contact</a>
+                <a className={pageName === 'Contact'? 'nav-link active' : 'nav-link'} href="/Contact">Contact</a>
               </li>
             </ul>
           </div>
